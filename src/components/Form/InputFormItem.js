@@ -8,7 +8,6 @@ import { TextField } from "@material-ui/core";
 export class InputFormItemNotFast extends Component {
   
   render() {
-    const requires = <div style={{ color: "red" }}>require</div>;
     const {
       label,
       name,

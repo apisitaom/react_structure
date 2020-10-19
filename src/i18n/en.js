@@ -28,6 +28,13 @@ const en = {
   },
 
   entities: {
+    login: {
+      fields: {
+        id: "id",
+        userId: "User Id",
+        password: "Password"
+      }
+    },
     customer: {
       name: 'customer',
       label: 'Customers',

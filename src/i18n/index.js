@@ -2,8 +2,7 @@ import React from "react";
 import _get from "lodash/get";
 import moment from "moment";
 import { setLocale as setYupLocale } from "yup";
-import en from "./en";
-import { message } from "antd";
+import en from "../i18n/en";
 
 let currentLanguageCode = null;
 
@@ -23,13 +22,14 @@ function init() {
 }
 
 export function getLanguage() {
-  return languages[getLanguageCode];
+  return languages[getLanguageCode()];
 }
 
 function format(message, args) {
   if (!message) {
     return null;
   }
+
   try {
     return message.replace(/{(\d+)}/g, function (match, number) {
       return typeof args[number] != "undefined" ? args[number] : match;
@@ -50,11 +50,13 @@ export function getLanguageCode() {
   if (!currentLanguageCode) {
     init();
   }
+
+  return currentLanguageCode;
 }
 
 export function setLanguageCode(arg) {
   if (!languages[arg]) {
-    throw Error(`Invalid language ${arg}.`);
+    throw new Error(`Invalid language ${arg}.`);
   }
 
   moment.locale(arg);
@@ -66,8 +68,8 @@ export function setLanguageCode(arg) {
 }
 
 export function i18nExists(key) {
-  const messge = _get(getLanguage().dictionary, key);
-  return !message;
+  const message = _get(getLanguage().dictionary, key);
+  return !!message;
 }
 
 export function i18n(key, ...args) {
